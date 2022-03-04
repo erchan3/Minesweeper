@@ -22,7 +22,7 @@ public void reset() {
 
 void setup ()
 {
-    size(800, 800);
+    size(400, 400);
     textAlign(CENTER,CENTER);
     
     // make the manager
@@ -118,8 +118,8 @@ public class MSButton
     
     public MSButton ( int row, int col )
     {
-        width = 800/NUM_COLS;
-        height = 800/NUM_ROWS;
+        width = 400/NUM_COLS;
+        height = 400/NUM_ROWS;
         myRow = row;
         myCol = col; 
         x = myCol*width;
