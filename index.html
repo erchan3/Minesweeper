@@ -9,15 +9,25 @@
 	</head>
 	<body>
 		<header>
-			<h1>Header</h1>
+			<h1>Minesweeper</h1>
 		</header>
 			<section id="content">
 				<canvas id="Minesweeper" data-processing-sources="Minesweeper.pde">
 				</canvas>
 		    </section>
 		<button id="reset_button">Reset</button>
+		<script type="application/javascript">
+			let processingInstance;
+			document.getElementById("reset_button").addEventListener("click", () => {
+				if (!processingInstance) {
+                	processingInstance = Processing.getInstanceById('Minesweeper');
+            	}
+				processingInstance.reset();
+				console.log('foo');
+			});
+		</script>
 	    <footer>
-		    Footer
+		    by Eric Chan block 5
 	    </footer>
 	</body>
 </html>
