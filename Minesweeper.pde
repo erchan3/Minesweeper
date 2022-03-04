@@ -9,6 +9,17 @@ private boolean gameStarted = false;
 private boolean win = false;
 private boolean lose = false;
 
+public void reset() {
+	buttons = new MSButton[NUM_ROWS][NUM_COLS];
+    for (int i = 0; i < buttons.length; i++) {
+      for (int j = 0; j < buttons[i].length; j++) {
+        buttons[i][j] = new MSButton(i, j);
+      }
+    }
+	mines.clear();
+	gameStarted = false;
+}
+
 void setup ()
 {
     size(800, 800);
