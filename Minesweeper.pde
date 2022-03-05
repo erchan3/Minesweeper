@@ -18,7 +18,7 @@ public void reset() {
   mines.clear();
   t.setText("");
   gameStarted = false;
-  gameOver = true;
+  gameOver = false;
 }
 
 
