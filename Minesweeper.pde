@@ -10,17 +10,15 @@ private boolean gameOver = false;
 private Text t;
 
 public void reset() {
-  buttons = new MSButton[NUM_ROWS][NUM_COLS];
     for (int i = 0; i < buttons.length; i++) {
       for (int j = 0; j < buttons[i].length; j++) {
-        buttons[i][j] = new MSButton(i, j);
+        buttons[i][j].reset();
       }
     }
   mines.clear();
+  t.setText("");
   gameStarted = false;
   gameOver = true;
-  t = new Text();
-  t.setText("");
 }
 
 
@@ -33,6 +31,13 @@ void setup ()
     Interactive.make( this );
     
     //your code to initialize buttons goes here
+    buttons = new MSButton[NUM_ROWS][NUM_COLS];
+    for (int i = 0; i < buttons.length; i++) {
+      for (int j = 0; j < buttons[i].length; j++) {
+        buttons[i][j] = new MSButton(i, j);
+      }
+    }
+    t = new Text();
     reset();
 }
 public void setMines()
@@ -134,6 +139,11 @@ public class MSButton
         myLabel = "";
         flagged = clicked = false;
         Interactive.add( this ); // register it with the manager
+    }
+    
+    public void reset() {
+      myLabel = "";
+      flagged = clicked = false;
     }
 
     // called by manager
