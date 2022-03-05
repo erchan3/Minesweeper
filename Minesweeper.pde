@@ -6,19 +6,23 @@ private static int NUM_ROWS = 20;
 private static int NUM_COLS = 20;
 private static int NUM_MINES = 3;
 private boolean gameStarted = false;
-private boolean win = false;
-private boolean lose = false;
+private boolean gameOver = false;
+private Text t;
 
 public void reset() {
-	buttons = new MSButton[NUM_ROWS][NUM_COLS];
+  buttons = new MSButton[NUM_ROWS][NUM_COLS];
     for (int i = 0; i < buttons.length; i++) {
       for (int j = 0; j < buttons[i].length; j++) {
         buttons[i][j] = new MSButton(i, j);
       }
     }
-	mines.clear();
-	gameStarted = false;
+  mines.clear();
+  gameStarted = false;
+  gameOver = true;
+  t = new Text();
+  t.setText("");
 }
+
 
 void setup ()
 {
@@ -29,12 +33,7 @@ void setup ()
     Interactive.make( this );
     
     //your code to initialize buttons goes here
-    buttons = new MSButton[NUM_ROWS][NUM_COLS];
-    for (int i = 0; i < buttons.length; i++) {
-      for (int j = 0; j < buttons[i].length; j++) {
-        buttons[i][j] = new MSButton(i, j);
-      }
-    }
+    reset();
 }
 public void setMines()
 {
@@ -53,7 +52,7 @@ public void setMines()
 public void draw ()
 {
     background( 0 );
-    if(isWon())
+    if(!gameOver && isWon())
         displayWinningMessage();
 }
 public boolean isWon()
@@ -71,22 +70,30 @@ public boolean isWon()
 public void displayLosingMessage()
 {
     //your code here
+    gameOver = true;
     for (int i = 0; i < buttons.length; i++) {
       for (int j = 0; j < buttons[i].length; j++) {
         buttons[i][j].unflag();
         buttons[i][j].mousePressed();
       }
     }
-    lose = true;
+    t.setText("YOU LOSE");
 }
 public void displayWinningMessage()
 {
     //your code here
+    gameOver = true;
+    // unflag everything
+    for (int i = 0; i < buttons.length; i++) {
+      for (int j = 0; j < buttons[i].length; j++) {
+        buttons[i][j].unflag();
+      }
+    }
     // set mines to clicked since everything not mine is clicked
     for (int i = 0; i < mines.size(); i++) {
-      mines.get(i).click();
+      mines.get(i).clickMe();
     }
-    win = true;
+    t.setText("YOU WIN");
 }
 public boolean isValid(int r, int c)
 {
@@ -184,6 +191,7 @@ public class MSButton
 
         rect(x, y, width, height);
         fill(0);
+        textSize(15);
         text(myLabel,x+width/2,y+height/2);
     }
     public void setLabel(String newLabel)
@@ -198,10 +206,29 @@ public class MSButton
     {
         return flagged;
     }
-    public void click() {
+    public void clickMe() {
       clicked = true;
     }
     public void unflag() {
       flagged = false;
     }
+}
+
+public class Text {
+  public String text_;
+  public Text() {
+    text_ = "";
+    Interactive.add(this);
+  }
+  public void draw() {
+    textSize(60);
+    fill(0);
+    text(text_, 200, 200);
+  }
+  public void setText(String t) {
+    text_ = t;
+  }
+  public boolean iSInside(float mx, float my) {
+    return false;
+  }
 }
