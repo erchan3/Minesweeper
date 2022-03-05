@@ -228,7 +228,8 @@ public class Text {
   public void setText(String t) {
     text_ = t;
   }
-  public boolean iSInside(float mx, float my) {
+  // guido complains when this doesn't exist
+  public boolean isInside(float mx, float my) {
     return false;
   }
 }
